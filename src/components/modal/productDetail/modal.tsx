@@ -45,7 +45,7 @@ export const Modal = ({ buttonRef }: ModalProps) => {
       sign === "increase" ? prevQuantity + 1 : Math.max(prevQuantity - 1, 1)
     );
   };
-
+  const discountPriceList = price?.filter((item) => item.name == "discount");
   const handleModalSubmit = (buttonType?: ModalButtonType) => {
     const ProductData = {
       id: uuidv4(),
@@ -54,15 +54,17 @@ export const Modal = ({ buttonRef }: ModalProps) => {
       name: name,
       size: size[productSizeIndex].value,
       spec: color[productSpecIndex].value,
-      price: price[productSpecIndex].value,
-      totalPrice: price[productSpecIndex].value * quantity,
+      // 帶入 discount Price,
+      price: discountPriceList[productSpecIndex].value,
+      totalPrice: discountPriceList[productSpecIndex].value * quantity,
       quantity: quantity,
     };
-    // buttonType?.name == "purchase"
-    //   ? console.log("purchase")
-    //   : console.log("cart");
-    toast.success("已加入購物車");
-    dispatch(addCart(ProductData));
+    if (buttonType?.name == "purchase") {
+      toast.success("[next Step]已下單成功 流程");
+    } else {
+      toast.success("已加入購物車");
+      dispatch(addCart(ProductData));
+    }
   };
   const [maxQuantity, setmaxQuantity] = useState<number>(7);
   // useEffect(() => {
@@ -84,6 +86,7 @@ export const Modal = ({ buttonRef }: ModalProps) => {
       console.error(`Quantity should be between 1 and ${maxQuantity}`);
     }
   };
+
   return (
     <div className="fixed inset-0 z-50 flex justify-center items-end text-white">
       <div className="fixed inset-0 z-50 bg-black/50 transition-all duration-100 data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=open]:fade-in" />
@@ -106,7 +109,7 @@ export const Modal = ({ buttonRef }: ModalProps) => {
             />
             <div className="grid text-opacity-90">
               <span className="text-sm">{name}</span>
-              <span>${price[productSpecIndex].value}</span>
+              <span>${discountPriceList[productSpecIndex].value}</span>
             </div>
             <button
               className="flex"
@@ -146,9 +149,7 @@ export const Modal = ({ buttonRef }: ModalProps) => {
               >
                 -
               </button>
-              {/* <span className="w-[42px] h-6 flex items-center justify-center">
-                {quantity}
-              </span> */}
+
               <input
                 type="number"
                 className="w-[42px] h-6 flex items-center justify-center bg-transparent text-end"

@@ -30,7 +30,7 @@ export interface ProductImageType {
 const SalePrice = ({ priceList }: { priceList: ProductPriceType[] }) => {
   const { min, max } = findMinMaxValues(priceList);
   return (
-    <span className="opacity-90">
+    <span className="opacity-30 text-sm font-normal line-through">
       ${min} - ${max}
     </span>
   );
@@ -38,7 +38,7 @@ const SalePrice = ({ priceList }: { priceList: ProductPriceType[] }) => {
 const DiscountPrice = ({ priceList }: { priceList: ProductPriceType[] }) => {
   const { min, max } = findMinMaxValues(priceList);
   return (
-    <span className="opacity-30 text-sm font-normal line-through">
+    <span className="opacity-90">
       ${min} - ${max}
     </span>
   );
@@ -73,8 +73,8 @@ const Product = () => {
           <div className="bg-[#272934] flex flex-col py-3 rounded-xl">
             <div className="opacity-90 font-medium px-3 pt-0.5">{name}</div>
             <div className="pl-3  flex items-center gap-1.5 py-0.5">
-              <SalePrice priceList={salePriceList} />
               <DiscountPrice priceList={discountPriceList} />
+              <SalePrice priceList={salePriceList} />
             </div>
 
             <div className="pl-3 py-1 text-xs font-medium flex gap-2 text-opacity-90">
