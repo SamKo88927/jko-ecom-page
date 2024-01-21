@@ -9,24 +9,6 @@ import {
 import { useEffect } from "react";
 import BottomBar from "@/layouts/bottomBar";
 
-export interface ProductType {
-  id: string;
-  images: ProductImageType[];
-  saleStatus: "0" | "1" | "2"; // 0: NotStartYet, 1: Start, 2: OutOfStock
-  name: string;
-  ownerAddress: string;
-  twdPrice: number;
-  usdPrice: number;
-  quantity: number;
-  spec: string;
-  tokenId: number;
-}
-export interface ProductImageType {
-  id: string;
-  imageUrl: string;
-  order: number;
-}
-
 const SalePrice = ({ priceList }: { priceList: ProductPriceType[] }) => {
   const { min, max } = findMinMaxValues(priceList);
   return (
