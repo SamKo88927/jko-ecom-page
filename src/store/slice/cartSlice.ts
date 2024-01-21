@@ -1,26 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import {
-//   getProductInfo,
-// } from "../thunks/fetchproduct";
 import { CartType } from "./type";
 interface CartState {
   cartData: CartType[];
 }
 
 const initialState: CartState = {
-  cartData: [
-    {
-      id: "",
-      productId: "",
-      img: "",
-      name: "",
-      size: "",
-      spec: "",
-      price: 0,
-      totalPrice: 0,
-      quantity: 0,
-    },
-  ],
+  cartData: [],
 };
 
 const cartSlice = createSlice({
